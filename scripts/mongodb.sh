@@ -24,7 +24,11 @@ sudo apt-get install -qq mongodb-org
 if [ $1 == "true" ]; then
     # enable remote access
     # setting the mongodb bind_ip to allow connections from everywhere
-    sed -i "s/bind_ip = .*/bind_ip = 0.0.0.0/" /etc/mongod.conf
+    if [ $2 == "3.0" ]; then
+      sed -i "s/bindIp: .*/bindIp: 0.0.0.0/" /etc/mongod.conf
+    else
+      sed -i "s/bind_ip = .*/bind_ip = 0.0.0.0/" /etc/mongod.conf
+    fi
 fi
 
 # Test if PHP is installed
